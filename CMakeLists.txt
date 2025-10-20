@@ -10,4 +10,6 @@ include_directories(include)
 file(GLOB SOURCES "src/*.cpp")
 
 # Create executable
-add_executable(ExpenseTracker ${SOURCES})
+add_executable(ExpenseTracker ${SOURCES}
+        src/ExpenseManager.cpp
+        include/ExpenseManager.h)
