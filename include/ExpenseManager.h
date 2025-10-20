@@ -1,13 +1,27 @@
-//
-// Created by Arslan Shaikh on 20/10/2025.
-//
+#ifndef EXPENSEMANAGER_H
+#define EXPENSEMANAGER_H
 
-#ifndef EXPENSETRACKER_EXPENSEMANAGER_H
-#define EXPENSETRACKER_EXPENSEMANAGER_H
-
+#include "Expense.h"
+#include <vector>
+#include <string>
 
 class ExpenseManager {
+private:
+    std::vector<Expense> expenses;
+    double income = 0.0;
+
+public:
+    // Income handling
+    void setIncome(double newIncome);
+    double getIncome() const;
+
+    // Expense handling
+    void addExpense(const Expense& expense);
+    void viewExpenses() const;
+
+    // Calculations
+    double calculateTotalExpenses() const;
+    double calculateRemainingBalance() const;
 };
 
-
-#endif //EXPENSETRACKER_EXPENSEMANAGER_H
+#endif
