@@ -1,8 +1,22 @@
-//
-// Created by Arslan Shaikh on 20/10/2025.
-//
+#ifndef EXPENSE_H
+#define EXPENSE_H
 
-#ifndef CODE_EXPENSE_H
-#define CODE_EXPENSE_H
+#include <string>
 
-#endif //CODE_EXPENSE_H
+class Expense {
+private:
+    std::string date;
+    std::string category;
+    std::string description;
+    double amount;
+
+public:
+    Expense(const std::string& date, const std::string& category, const std::string& description, double amount);
+
+    std::string getDate() const;
+    std::string getCategory() const;
+    std::string getDescription() const;
+    double getAmount() const;
+};
+
+#endif
