@@ -1,5 +1,6 @@
 //
-// Created by Arslan Shaikh on 20/10/2025.
+// This class will handle storing expenses, tracking income and calculating totals and balances
 //
 
 #include "../include/ExpenseManager.h"
+
