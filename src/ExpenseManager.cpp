@@ -3,47 +3,58 @@
 //a bunch of methods
 
 #include "../include/ExpenseManager.h"
+#include <ctime>
+#include <sstream>
+#include <iomanip>
 
-#include "ExpenseManager.h"
-#include <iostream>
+ExpenseManager::ExpenseManager() {
+    std::time_t t = std::time(nullptr);
+    std::tm* now = std::localtime(&t);
+    std::ostringstream oss;
+    oss << std::put_time(now, "%B %Y"); // e.g. "November 2025"
+    currentMonth = oss.str();
+}
 
-//setter method to set the user's new income
+void ExpenseManager::setMonth(const std::string& month) {
+    currentMonth = month;
+}
+
+std::string ExpenseManager::getMonth() const {
+    return currentMonth;
+}
+
 void ExpenseManager::setIncome(double newIncome) {
-    income = newIncome;
+    monthlyIncome[currentMonth] = newIncome;
 }
-//getter method to retrieve the user's new income
+
 double ExpenseManager::getIncome() const {
-    return income;
+    if (monthlyIncome.count(currentMonth))
+        return monthlyIncome.at(currentMonth);
+    return 0.0;
 }
 
-//add a new expense entry to the recorded responses
 void ExpenseManager::addExpense(const Expense& expense) {
-    expenses.push_back(expense);
+    monthlyExpenses[currentMonth].push_back(expense);
 }
 
-//displays all recorded expenses in a list.
-void ExpenseManager::viewExpenses() const {
-    std::cout << "\n----- All Expenses -----\n";
-    for (const auto& e : expenses) {
-
-        //fields we will be focusing on
-        std::cout << e.getDate() << " | "
-                  << e.getCategory() << " | "
-                  << e.getDescription() << " | £"
-                  << e.getAmount() << "\n";
-    }
-    std::cout << "------------------------\n";
+const std::vector<Expense>& ExpenseManager::getExpenses() const {
+    static std::vector<Expense> empty;
+    auto it = monthlyExpenses.find(currentMonth);
+    if (it != monthlyExpenses.end())
+        return it->second;
+    return empty;
 }
 
-//calculates and returns the sum (total) of all the expense amounts
 double ExpenseManager::calculateTotalExpenses() const {
     double total = 0.0;
-    for (const auto& e : expenses)
-        total += e.getAmount();
+    auto it = monthlyExpenses.find(currentMonth);
+    if (it != monthlyExpenses.end()) {
+        for (const auto& e : it->second)
+            total += e.getAmount();
+    }
     return total;
 }
 
-//calculate the remaining balance subtracting income from total expenses
 double ExpenseManager::calculateRemainingBalance() const {
-    return income - calculateTotalExpenses();
+    return getIncome() - calculateTotalExpenses();
 }
