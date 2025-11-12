@@ -18,10 +18,10 @@ void MainWindow::setupUI() {
     QVBoxLayout *layout = new QVBoxLayout(central);
 
     incomeInput = new QLineEdit(this);
-    incomeInput->setPlaceholderText("Enter your income (£)");
+    incomeInput->setPlaceholderText("Enter your monthly take home pay (£)");
 
     dateInput = new QLineEdit(this);
-    dateInput->setPlaceholderText("Date (YYYY-MM-DD)");
+    dateInput->setPlaceholderText("Date (DD-MM-YYYY)");
 
     categoryInput = new QLineEdit(this);
     categoryInput->setPlaceholderText("Category");
@@ -66,10 +66,32 @@ void MainWindow::addExpense() {
     QString desc = descriptionInput->text();
     double amount = amountInput->text().toDouble();
 
+    //checks validity of inputs
+    if (date.isEmpty() || category.isEmpty() || desc.isEmpty() || amount <= 0) {
+        QMessageBox::warning(this, "Invalid Input", "Please enter all fields with valid data.");
+        return;
+    }
+
+    //creates and stores the expense
     Expense e(date.toStdString(), category.toStdString(), desc.toStdString(), amount);
     manager.addExpense(e);
 
-    refreshTable();
+    //add directly to table for immediate feedback
+    int row = expenseTable->rowCount();
+    expenseTable->insertRow(row);
+    expenseTable->setItem(row, 0, new QTableWidgetItem(date));
+    expenseTable->setItem(row, 1, new QTableWidgetItem(category));
+    expenseTable->setItem(row, 2, new QTableWidgetItem(desc));
+    expenseTable->setItem(row, 3, new QTableWidgetItem(QString::number(amount, 'f', 2)));
+
+    // Clear input fields
+    dateInput->clear();
+    categoryInput->clear();
+    descriptionInput->clear();
+    amountInput->clear();
+
+    // Update totals
+    updateSummary();
 }
 
 void MainWindow::refreshTable() {
