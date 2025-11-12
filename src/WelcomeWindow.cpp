@@ -12,7 +12,7 @@ WelcomeWindow::WelcomeWindow(QWidget *parent)
 
     auto *layout = new QVBoxLayout(this);
 
-    auto *label = new QLabel("👋 Hello, welcome to Expense Tracker!", this);
+    auto *label = new QLabel("Good afternoon", this);
     label->setAlignment(Qt::AlignCenter);
     label->setStyleSheet("font-size: 18px; font-weight: bold;");
 
