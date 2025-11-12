@@ -1,7 +1,3 @@
-//
-// Created by Arslan Shaikh on 12/11/2025.
-//
-
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
@@ -13,7 +9,7 @@
 #include "../include/ExpenseManager.h"
 
 class MainWindow : public QMainWindow {
-    Q_OBJECT
+    Q_OBJECT   // <-- REQUIRED for Qt signals/slots!
 
 private:
     ExpenseManager manager;
