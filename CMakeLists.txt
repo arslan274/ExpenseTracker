@@ -1,15 +1,29 @@
 cmake_minimum_required(VERSION 3.26)
-project(ExpenseTracker)
+project(ExpenseTrackerGUI)
 
 set(CMAKE_CXX_STANDARD 17)
 
-# Include header files
-include_directories(include)
+# Find Qt (Widgets only)
+find_package(Qt6 REQUIRED COMPONENTS Widgets)
 
-# Collect all source files from src/
-file(GLOB SOURCES "src/*.cpp")
-
-# Create executable
-add_executable(ExpenseTracker ${SOURCES}
+set(SOURCES
+        src/main.cpp
+        src/MainWindow.cpp
+        src/Expense.cpp
         src/ExpenseManager.cpp
-        include/ExpenseManager.h)
+)
+
+set(HEADERS
+        include/Expense.h
+        include/ExpenseManager.h
+        src/MainWindow.h
+)
+
+qt_standard_project_setup()
+
+qt_add_executable(ExpenseTracker
+        ${SOURCES}
+        ${HEADERS}
+)
+
+target_link_libraries(ExpenseTracker PRIVATE Qt6::Widgets)
