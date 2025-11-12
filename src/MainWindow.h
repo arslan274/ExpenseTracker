@@ -8,6 +8,8 @@
 #include <QLabel>
 #include "../include/ExpenseManager.h"
 #include <QMessageBox>
+#include <QComboBox>
+#include <QDate>
 
 class MainWindow : public QMainWindow {
     Q_OBJECT   // <-- REQUIRED for Qt signals/slots!
@@ -27,6 +29,7 @@ private:
 
     QPushButton *addButton;
     QPushButton *updateSummaryButton;
+    QComboBox *monthSelector;
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);
