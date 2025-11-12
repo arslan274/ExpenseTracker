@@ -17,6 +17,7 @@ set(HEADERS
         include/Expense.h
         include/ExpenseManager.h
         src/MainWindow.h
+        include/MainWindow.h
 )
 
 qt_standard_project_setup()
