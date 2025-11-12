@@ -25,6 +25,7 @@ set(SRC_FILES
         ${CMAKE_SOURCE_DIR}/src/ExpenseManager.cpp
         ${CMAKE_SOURCE_DIR}/src/MainWindow.h
         src/WelcomeWindow.h
+        src/WelcomeWindow.cpp
 )
 
 qt_add_executable(ExpenseTracker
