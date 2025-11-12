@@ -17,6 +17,29 @@ void MainWindow::setupUI() {
     setCentralWidget(central);
     QVBoxLayout *layout = new QVBoxLayout(central);
 
+    monthSelector = new QComboBox(this);
+
+    // Populate months
+    QStringList months = {"January", "February", "March", "April", "May", "June",
+                          "July", "August", "September", "October", "November", "December"};
+
+    monthSelector->addItems(months);
+
+    // Set current month automatically
+    int currentMonthIndex = QDate::currentDate().month() - 1;
+    monthSelector->setCurrentIndex(currentMonthIndex);
+
+    // Update ExpenseManager when user changes month
+    connect(monthSelector, &QComboBox::currentTextChanged, this, [this](const QString &month) {
+        QString fullMonth = month + " " + QString::number(QDate::currentDate().year());
+        manager.setMonth(fullMonth.toStdString());
+        refreshTable();
+        updateSummary();
+    });
+
+    layout->addWidget(monthSelector);
+
+
     incomeInput = new QLineEdit(this);
     incomeInput->setPlaceholderText("Enter your monthly take home pay (£)");
 
