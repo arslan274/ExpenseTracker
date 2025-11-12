@@ -7,6 +7,7 @@
 #include <QPushButton>
 #include <QLabel>
 #include "../include/ExpenseManager.h"
+#include <QMessageBox>
 
 class MainWindow : public QMainWindow {
     Q_OBJECT   // <-- REQUIRED for Qt signals/slots!
